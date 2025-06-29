@@ -23,12 +23,28 @@ Fonts:
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: "Proxima Nova", Avenir, sans-serif;
   margin: 0;
   padding: 30px;
   background-color: #f0f0f0;
   color: #333;
 }
+/* Difficulty Selector Styles */
+.difficulty-selector {
+  text-align: center;
+  margin: 20px 0;
+}
+.difficulty-selector label {
+  font-size: 16px;
+  margin-right: 10px;
+}
+.difficulty-selector select {
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
 
 .container {
   max-width: 750px;
@@ -151,4 +167,16 @@ button {
   .stats p {
     margin-bottom: 10px;
   }
+}
+footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 14px;
+}
+footer a {
+  color: #FFC907; /* charity: water yellow */
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
 }
