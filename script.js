@@ -77,19 +77,12 @@ function startGame() {
   if (gameActive) return; // Prevent starting a new game if one is already active
   gameActive = true;
   score = 0; // Reset score at start
+  currentCans = 0;
   document.getElementById('score').textContent = score; // Update score display
-  createGrid(); // Set up the game grid
+  document.getElementById('current-cans').textContent = currentCans;
 
   timeLeft = 30;
   document.getElementById('timer').textContent = timeLeft;
-
-  gameTimer = setInterval(() => {
-    timeLeft--;
-    document.getElementById('timer').textContent = timeLeft;
-    if (timeLeft <= 0) {
-      endGame();
-    }
-  }, 1000);
 
   // Get selected difficulty and adjust spawn rate accordingly
   const difficultySelect = document.getElementById('difficulty');
@@ -105,13 +98,26 @@ function startGame() {
     }
   }
 
+  createGrid(); // Set up the game grid
+
+  gameTimer = setInterval(() => {
+    timeLeft--;
+    document.getElementById('timer').textContent = timeLeft;
+    if (timeLeft <= 0) {
+      endGame();
+    }
+  }, 1000);
+
   spawnInterval = setInterval(spawnWaterCan, spawnRate); // Spawn water cans at adjusted rate
 }
 
 function endGame() {
+  if (!gameActive) return;
   gameActive = false; // Mark the game as inactive
   clearInterval(spawnInterval); // Stop spawning water cans
   clearInterval(gameTimer);
+  const achievementDiv = document.getElementById('achievements');
+  achievementDiv.textContent = "Game Over!";
 }
 
 // Set up click handler for the start button
