@@ -44,10 +44,7 @@ function spawnWaterCan() {
       if (!gameActive) return;
       score++;
       document.getElementById('score').textContent = score;
-      waterCan.style.backgroundColor = '#ffeb3b'; // Visual feedback
-      setTimeout(() => {
-        waterCan.style.backgroundColor = ''; // Reset color
-      }, 200);
+      waterCan.remove(); // Remove the can element after clicking for clarity
     });
   }
 }
@@ -59,7 +56,22 @@ function startGame() {
   score = 0; // Reset score at start
   document.getElementById('score').textContent = score; // Update score display
   createGrid(); // Set up the game grid
-  spawnInterval = setInterval(spawnWaterCan, 1000); // Spawn water cans every second
+
+  // Get selected difficulty and adjust spawn rate accordingly
+  const difficultySelect = document.getElementById('difficulty');
+  let spawnRate = 1000; // Default spawn rate in ms
+  if (difficultySelect) {
+    const difficulty = difficultySelect.value;
+    if (difficulty === 'easy') {
+      spawnRate = 1500;
+    } else if (difficulty === 'medium') {
+      spawnRate = 1000;
+    } else if (difficulty === 'hard') {
+      spawnRate = 500;
+    }
+  }
+
+  spawnInterval = setInterval(spawnWaterCan, spawnRate); // Spawn water cans at adjusted rate
 }
 
 function endGame() {
