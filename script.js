@@ -5,6 +5,14 @@ let gameActive = false;      // Tracks if game is currently running
 let spawnInterval;          // Holds the interval for spawning items
 let score = 0;               // Global score variable
 
+const milestones = [
+  { score: 5, message: "Great start!" },
+  { score: 10, message: "Halfway there!" },
+  { score: 15, message: "Almost there!" },
+  { score: 20, message: "Just a bit more!" },
+  { score: 25, message: "You reached the goal!" }
+];
+
 // Creates the 3x3 game grid where items will appear
 function createGrid() {
   const grid = document.querySelector('.game-grid');
@@ -44,6 +52,14 @@ function spawnWaterCan() {
       if (!gameActive) return;
       score++;
       document.getElementById('score').textContent = score;
+      const achievementDiv = document.getElementById('achievements');
+      const milestone = milestones.find(m => m.score === score);
+      if (milestone) {
+        achievementDiv.textContent = milestone.message;
+        setTimeout(() => {
+          achievementDiv.textContent = '';
+        }, 2000);
+      }
       waterCan.remove(); // Remove the can element after clicking for clarity
     });
   }
