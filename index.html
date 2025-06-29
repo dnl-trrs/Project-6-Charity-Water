@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width">
   <title>Water Quest</title>
   <link href="style.css" rel="stylesheet" type="text/css" />
+  <style>
+    body {
+      font-family: "Proxima Nova", Arial, sans-serif;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -17,7 +22,18 @@
     </div>
     <div id="achievements" class="achievement"></div>
     <div class="game-grid"></div>
+    <div class="difficulty-selector">
+      <label for="difficulty">Select Difficulty:</label>
+      <select id="difficulty">
+        <option value="easy">Easy</option>
+        <option value="normal" selected>Normal</option>
+        <option value="hard">Hard</option>
+      </select>
+    </div>
     <button id="start-game">Start Game</button>
+    <footer>
+      <p>Learn more about <a href="https://www.charitywater.org" target="_blank">charity: water</a> or <a href="https://www.charitywater.org/donate" target="_blank">donate today</a>.</p>
+    </footer>
   </div>
   <script src="script.js"></script>
 </body>
