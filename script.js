@@ -4,6 +4,8 @@ let currentCans = 0;         // Current number of items collected
 let gameActive = false;      // Tracks if game is currently running
 let spawnInterval;          // Holds the interval for spawning items
 let score = 0;               // Global score variable
+let timeLeft = 30;
+let gameTimer;
 
 const milestones = [
   { score: 5, message: "Great start!" },
@@ -51,7 +53,12 @@ function spawnWaterCan() {
     waterCan.addEventListener('click', () => {
       if (!gameActive) return;
       score++;
+      currentCans++;
+      document.getElementById('current-cans').textContent = currentCans;
       document.getElementById('score').textContent = score;
+      if (score >= 20) {
+        endGame();
+      }
       const achievementDiv = document.getElementById('achievements');
       const milestone = milestones.find(m => m.score === score);
       if (milestone) {
@@ -73,6 +80,17 @@ function startGame() {
   document.getElementById('score').textContent = score; // Update score display
   createGrid(); // Set up the game grid
 
+  timeLeft = 30;
+  document.getElementById('timer').textContent = timeLeft;
+
+  gameTimer = setInterval(() => {
+    timeLeft--;
+    document.getElementById('timer').textContent = timeLeft;
+    if (timeLeft <= 0) {
+      endGame();
+    }
+  }, 1000);
+
   // Get selected difficulty and adjust spawn rate accordingly
   const difficultySelect = document.getElementById('difficulty');
   let spawnRate = 1000; // Default spawn rate in ms
@@ -93,6 +111,7 @@ function startGame() {
 function endGame() {
   gameActive = false; // Mark the game as inactive
   clearInterval(spawnInterval); // Stop spawning water cans
+  clearInterval(gameTimer);
 }
 
 // Set up click handler for the start button
